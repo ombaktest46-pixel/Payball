@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: '20'
 
-      - name: 📁 Siapin Folder www Otomatis (Anti-Error)
+      - name: 📁 Siapin Folder www Otomatis
         run: |
           mkdir -p www
           mv *.html *.css *.js www/ 2>/dev/null || true
@@ -33,6 +33,14 @@ jobs:
         run: |
           npx cap add android
           npx cap sync android
+
+      - name: 🎨 Pasang Icon PayBall (Otomatis)
+        run: |
+          npm install @capacitor/assets
+          # Memindahkan icon.png dari folder utama ke folder assets agar terdeteksi
+          mkdir -p assets
+          mv icon.png assets/icon.png 2>/dev/null || true
+          npx @capacitor/assets generate --android
 
       - name: ☕ Setup Java JDK 17
         uses: actions/setup-java@v4
