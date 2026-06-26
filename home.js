@@ -25,12 +25,19 @@ let currentBeliPrice = 0;
    ========================================================= */
 async function loadFromSupabase() {
     try {
-        const { data: { user }, error: uError } = await supabaseClient.auth.getUser();
-        if (uError || !user) {
-            alert("Sesi login habis. Silakan login kembali!");
-            window.location.href = "login.html";
-            return;
-        }
+        // Ganti getUser() dengan getSession()
+const { data: { session }, error: sError } = await supabaseClient.auth.getSession();
+
+// Periksa session, bukan user langsung
+if (sError || !session) {
+    alert("Sesi login habis. Silakan login kembali!");
+    window.location.href = "login.html";
+    return;
+}
+
+// Ambil user dari session yang sudah tervalidasi
+const user = session.user;
+       
         appState.userId = user.id;
 
         let { data: finance, error: fError } = await supabaseClient
