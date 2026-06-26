@@ -1,0 +1,53 @@
+/* 1. Pengaturan Font (Sudah diperbaiki tanda petiknya) */
+@font-face {
+    font-family: 'MyCustomFont'; 
+    src: url('assets/fonts/Creator Genius.ttf') format('truetype');
+}
+
+/* 2. Variabel Warna (Gampang diganti nanti) */
+:root {
+    --primary-color: #007bff; /* Warna biru PayBall */
+    --bg-color: #ffffff;
+    --text-color: #333333;
+}
+
+/* 3. Reset Dasar (Agar tampilan di setiap HP konsisten) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'MyCustomFont', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* 4. Utility Class (Biar gak capek ngulang nulis kode) */
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Animasi transisi antar halaman (agar halus) */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

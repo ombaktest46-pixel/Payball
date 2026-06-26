@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayBall - Loading</title>
+    <link rel="stylesheet" href="global.css">
+    <style>
+        /* Animasi Splash Screen */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffffff;
+        }
+
+        /* Tambahan: Paksa teks di dalam splash-content pake font global */
+        .splash-content h1, .splash-content p {
+            font-family: inherit; 
+        }
+        
+        .splash-content {
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="splash-content">
+        <h1 style="color: #007bff;">PayBall</h1>
+        <p>Loading...</p>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 3000);
+    </script>
+</body>
+</html>

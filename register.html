@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayBall - Register</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="global.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e6e6e6;
+            padding: 20px;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .logo-title {
+            font-size: 3.5rem;
+            color: #2b56df;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        .register-container {
+            background-color: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 60px;
+            width: 100%;
+            max-width: 360px;
+            padding: 35px 25px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .register-title {
+            font-size: 2.5rem;
+            font-style: italic;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: #000000;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 18px;
+            width: 100%;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-style: italic;
+            margin-left: 15px;
+            margin-bottom: 5px;
+            color: #000000;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 1px solid #000000;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .btn-register-submit {
+            width: 100%;
+            padding: 14px;
+            background-color: #2b56df;
+            color: #ffffff;
+            border: none;
+            border-radius: 25px;
+            font-family: 'MyCustomFont', sans-serif;
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-style: italic;
+            cursor: pointer;
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(43, 86, 223, 0.2);
+            transition: transform 0.1s ease;
+        }
+
+        .btn-register-submit:active {
+            transform: scale(0.96);
+            background-color: #1c44b3;
+        }
+
+        .action-text {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #000000;
+        }
+
+        .login-link {
+            display: inline-block;
+            color: #000000;
+            text-decoration: none;
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+
+        .login-link::after {
+            content: " •";
+        }
+
+        /* --- STYLE MOCKUP POP-UP SUKSES --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: none; /* Tersembunyi di awal */
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .modal-overlay.active {
+            display: flex; /* Muncul ketika ditambahkan kelas 'active' */
+        }
+
+        .success-popup {
+            background: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 40px; /* Sudut melengkung besar khas PayBall */
+            width: 85%;
+            max-width: 320px;
+            padding: 30px 20px;
+            box-sizing: border-box;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .success-popup h3 {
+            font-size: 1.8rem;
+            font-style: italic;
+            font-weight: 900;
+            margin: 0 0 10px 0;
+            color: #2b56df; /* Warna biru utama */
+        }
+
+        .success-popup p {
+            font-size: 1rem;
+            font-weight: bold;
+            margin: 0 0 20px 0;
+            color: #333333;
+            line-height: 1.4;
+        }
+
+        .btn-popup-ok {
+            width: 100%;
+            padding: 12px;
+            background-color: #2b56df; /* Tombol biru polos */
+            color: #ffffff;
+            border: none;
+            border-radius: 20px;
+            font-family: 'MyCustomFont', sans-serif;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        .btn-popup-ok:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body class="fade-in">
+
+    <div class="logo-title">PayBall</div>
+
+    <div class="register-container">
+        <h2 class="register-title">REGISTER</h2>
+        
+        <form id="registerForm" onsubmit="handleRegister(event)">
+            <div class="input-group">
+                <label for="regGmail">Gmail</label>
+                <input type="email" id="regGmail" required autocomplete="off">
+            </div>
+
+            <div class="input-group">
+                <label for="regPassword">Password</label>
+                <input type="password" id="regPassword" required>
+            </div>
+
+            <button type="submit" class="btn-register-submit">REGISTER</button>
+
+            <div class="action-text">sudah punya akun?</div>
+            <a href="login.html" class="login-link">login</a>
+        </form>
+    </div>
+
+    <div id="modal-success" class="modal-overlay">
+        <div class="success-popup">
+            <h3>BERHASIL!</h3>
+            <p>Registrasi sukses.<br>Silakan login kembali.</p>
+            <button class="btn-popup-ok" onclick="redirectToLogin()">OK</button>
+        </div>
+    </div>
+
+    <script src="register.js"></script>
+</body>
+</html>
