@@ -606,6 +606,19 @@ function toggleDarkMode() {
 if (localStorage.getItem('payball_comic_mode') === 'ON') {
     document.body.classList.add('dark-mode');
 }
+// Taruh di paling bawah home.js
+function toggleText(id) {
+    const el = document.getElementById(id);
+    if (!el.dataset.original) {
+        el.dataset.original = el.innerText;
+    }
+    if (el.innerText !== "••••••••") {
+        el.innerText = "••••••••";
+    } else {
+        el.innerText = el.dataset.original;
+    }
+}
+
 
 /* =========================================================
    INIT
