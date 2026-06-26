@@ -211,5 +211,15 @@
     </div>
 
     <script src="login.js"></script>
+    <script>
+    // Pintu Pintar: Cek kalau udah ada sesi login, langsung lempar ke home.html
+    window.addEventListener('DOMContentLoaded', async () => {
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        if (session) {
+            window.location.href = "home.html";
+        }
+    });
+    </script>
+    
 </body>
 </html>
