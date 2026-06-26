@@ -5,11 +5,10 @@ on:
     branches:
       - main
       - master
-  workflow_dispatch: # Biar bisa dipencet manual di GitHub
+  workflow_dispatch:
 
 jobs:
   build:
-    name: Build Android APK
     runs-on: ubuntu-latest
 
     steps:
@@ -21,10 +20,16 @@ jobs:
         with:
           node-version: '20'
 
-      - name: 📦 Install Dependencies
+      - name: 📁 Siapin Folder www Otomatis (Anti-Error)
+        run: |
+          mkdir -p www
+          mv *.html *.css *.js www/ 2>/dev/null || true
+          mv assets www/ 2>/dev/null || true
+
+      - name: 📦 Install Mesin Capacitor
         run: npm install
 
-      - name: 🤖 Generate Android Project (Capacitor)
+      - name: 🤖 Rakit Android
         run: |
           npx cap add android
           npx cap sync android
@@ -35,14 +40,15 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: 🔑 Make gradlew executable
-        run: chmod +x android/gradlew
-
-      - name: 🏗️ Build APK (Debug)
-        run: cd android && ./gradlew assembleDebug
+      - name: 🏗️ Proses Build APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
 
       - name: 🚀 Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: PayBall-APK
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: android/app/build/outputs/apk/debug/*.apk
+          
