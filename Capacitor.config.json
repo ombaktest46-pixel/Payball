@@ -1,0 +1,6 @@
+{
+  "appId": "com.payball.app",
+  "appName": "PayBall",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}
